@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @passenger.name %>
+</p>
+
+<p>
+  <b>Mobile:</b>
+  <%= @passenger.mobile %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%= @passenger.lat %>
+</p>
+
+<p>
+  <b>Long:</b>
+  <%= @passenger.lng %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%= @passenger.password %>
+</p>
+
+
+<%= link_to 'Edit', edit_passenger_path(@passenger) %> |
+<%= link_to 'Back', passengers_path %>

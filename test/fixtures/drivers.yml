@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  mobile: MyString
+  lat: MyString
+  long: MyString
+  password: MyString
+  car_license: MyString
+  car_type: MyString
+  car_service_number: MyString
+  rate: 1
+
+two:
+  name: MyString
+  mobile: MyString
+  lat: MyString
+  long: MyString
+  password: MyString
+  car_license: MyString
+  car_type: MyString
+  car_service_number: MyString
+  rate: 1

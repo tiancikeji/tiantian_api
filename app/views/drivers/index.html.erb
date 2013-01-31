@@ -1,0 +1,41 @@
+<h1>Listing drivers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Mobile</th>
+    <th>Lat</th>
+    <th>Long</th>
+    <th>Password</th>
+    <th>Car license</th>
+    <th>Car type</th>
+    <th>Car service number</th>
+    <th>Rate</th>
+    <th>androidDevice</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @drivers.each do |driver| %>
+  <tr>
+    <td><%= driver.name %></td>
+    <td><%= driver.mobile %></td>
+    <td><%= driver.lat %></td>
+    <td><%= driver.lng %></td>
+    <td><%= driver.password %></td>
+    <td><%= driver.car_license %></td>
+    <td><%= driver.car_type %></td>
+    <td><%= driver.car_service_number %></td>
+    <td><%= driver.rate %></td>
+    <td><%= driver.androidDevice %></td>
+    <td><%= link_to 'Show', driver %></td>
+    <td><%= link_to 'Edit', edit_driver_path(driver) %></td>
+    <td><%= link_to 'Destroy', driver, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Driver', new_driver_path %>
