@@ -13,6 +13,11 @@ class Api::PassengersController < ApplicationController
     render :json => {:passenger =>@passenger}
   end
 
+  def get_verification_code
+    content = URI::encode(" tiantiandache "+rand(9999).to_s)
+    render :json => {:code => Passenger.get_verification_code(params[:mobile],content) }
+  end
+
   def signup 
     @passenger = Passenger.new(params[:passenger])
     if @passenger.save

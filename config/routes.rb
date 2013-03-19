@@ -18,6 +18,7 @@ Api::Application.routes.draw do
     post 'passengers/signin' => 'passengers#signin'
     post 'passengers/signup' => 'passengers#signup'
     get 'passengers/signout' => 'passengers#signout'
+    get 'passengers/get_verification_code' => 'passengers#get_verification_code'
     post 'drivers/signup' => 'drivers#signup'
     post 'drivers/signin' => 'drivers#signin'
     post 'drivers/:id' => 'drivers#update'
