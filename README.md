@@ -24,7 +24,7 @@ curl -XPOST -d'passenger[name]=wanglei&passenger[mobile]=18600808686&passenger[p
 
 
 <h2>
-  乘客huoqu yanzhengma (乘客端)
+  乘客获取验证码 (乘客端)
 </h2>
 <h3>
   url: <a href="/api/passengers/get_verification_code">/api/passengers/get_verification_code</a>
