@@ -12,6 +12,7 @@
     <th>Car service number</th>
     <th>Rate</th>
     <th>androidDevice</th>
+    <th>online</th>
     <th></th>
     <th></th>
     <th></th>
@@ -29,6 +30,7 @@
     <td><%= driver.car_service_number %></td>
     <td><%= driver.rate %></td>
     <td><%= driver.androidDevice %></td>
+    <td><%= driver.online %></td>
     <td><%= link_to 'Show', driver %></td>
     <td><%= link_to 'Edit', edit_driver_path(driver) %></td>
     <td><%= link_to 'Destroy', driver, method: :delete, data: { confirm: 'Are you sure?' } %></td>
