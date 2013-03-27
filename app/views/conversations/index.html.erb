@@ -4,7 +4,9 @@
   <tr>
 
     <th>id</th>
+    <th>From Id</th>
     <th>From</th>
+    <th>To Id</th>
     <th>To</th>
     <th>Status</th>
     <th>Status desc</th>
@@ -18,7 +20,9 @@
   <tr>
 
     <td><%= conversation.id%></td>
+    <td><%= conversation.passenger.id %></td>
     <td><%= conversation.passenger.name %></td>
+    <td><%= conversation.driver.id %></td>
     <td><%= conversation.driver.name %></td>
     <td><%= conversation.status %></td>
     <td><%= conversation.status_desc %></td>

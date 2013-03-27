@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Id</th>
     <th>Name</th>
     <th>Mobile</th>
     <th>Lat</th>
@@ -19,6 +20,7 @@
 
 <% @passengers.each do |passenger| %>
   <tr>
+    <td><%= passenger.id %></td>
     <td><%= passenger.name %></td>
     <td><%= passenger.mobile %></td>
     <td><%= passenger.lat %></td>

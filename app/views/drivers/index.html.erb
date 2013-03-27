@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Id</th>
     <th>Name</th>
     <th>Mobile</th>
     <th>Lat</th>
@@ -20,6 +21,7 @@
 
 <% @drivers.each do |driver| %>
   <tr>
+    <td><%= driver.id %></td>
     <td><%= driver.name %></td>
     <td><%= driver.mobile %></td>
     <td><%= driver.lat %></td>
