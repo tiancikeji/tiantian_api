@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123053057) do
+ActiveRecord::Schema.define(:version => 20130402015941) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20130123053057) do
     t.string   "start_lng",    :null => false
     t.string   "end_lat"
     t.string   "end_lng"
+    t.string   "price"
   end
 
 end
