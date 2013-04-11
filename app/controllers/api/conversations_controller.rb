@@ -58,6 +58,14 @@ class Api::ConversationsController < ApplicationController
   # POST /conversations/1.json
   def update
     @conversation = Conversation.find(params[:id])
+	logger.info("------------------------------")
+	logger.info(@conversation.from_id)
+	if @conversation.status == 1
+	  Conversation.where(:from_id => @conversation.from_id).where(:status => 0).each do |conversation|
+	    Conversation.update(conversation.id,:status => 5)
+	  end
+	end
+
     if @conversation.update_attributes(params[:conversation])
       render :json => { :conversation => @conversation }
     else
