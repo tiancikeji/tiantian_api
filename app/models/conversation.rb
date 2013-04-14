@@ -1,5 +1,3 @@
-class Conversation < ActiveRecord::Base
-  STATUS_NEW = 0
   STATUS_ACCETP = 1
   STATUS_REJECT = 2
   STATUS_NEW_DESC = 'new'

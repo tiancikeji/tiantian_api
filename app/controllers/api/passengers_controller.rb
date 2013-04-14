@@ -1,3 +1,4 @@
+#encoding:utf-8
 class Api::PassengersController < ApplicationController
   def index
     @passengers = Passenger.geo_scope(:within => 5 ,:units => :km, :origin => GeoKit::LatLng.new(params[:passenger][:lat],params[:passenger][:lng]))
@@ -15,7 +16,7 @@ class Api::PassengersController < ApplicationController
   end
 
   def get_verification_code
-    content = URI::encode(" tiantiandache "+rand(9999).to_s)
+    content = URI::encode("手机验证码:"+rand(9999).to_s+" [天天打车]")
     render :json => {:code => Passenger.get_verification_code(params[:mobile],content) }
   end
 
