@@ -15,11 +15,7 @@ class Api::ConversationsController < ApplicationController
   # GET /conversations/1.json
   def show
     @conversation = Conversation.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @conversation }
-    end
+    render :json => {:conversation => @conversation }
   end
 
   # GET /conversations/new

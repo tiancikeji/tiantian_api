@@ -1,6 +1,7 @@
 class Api::PassengersController < ApplicationController
   def index
     @passengers = Passenger.geo_scope(:within => 5 ,:units => :km, :origin => GeoKit::LatLng.new(params[:passenger][:lat],params[:passenger][:lng]))
+#.joins('LEFT OUTER JOIN conversations ON conversations.to_id = '+@driver.id)
     @driver = Driver.where('iosDevice = ? or androidDevice = ?', params[:passenger][:iosDevice],params[:passenger][:androidDevice]).first
     if @driver
       Driver.update(@driver.id,:lat => params[:passenger][:lat] , :lng => params[:passenger][:lng], :online => 1)

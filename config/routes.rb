@@ -28,6 +28,7 @@ Api::Application.routes.draw do
     post 'trips' => 'trips#create'
     get 'trips/:id' => 'trips#show'
     get 'conversations' => 'conversations#index'
+    get 'conversations/:id' => 'conversations#show'
     post 'conversations/:id' => 'conversations#update'
   end
   root :to => 'welcome#index'
