@@ -1,4 +1,5 @@
 Api::Application.routes.draw do
+
   resources :notifications
 
   resources :conversations
@@ -30,6 +31,7 @@ Api::Application.routes.draw do
     get 'conversations' => 'conversations#index'
     get 'conversations/:id' => 'conversations#show'
     post 'conversations/:id' => 'conversations#update'
+    get 'push' => 'push#index'
   end
   root :to => 'welcome#index'
 
