@@ -15,7 +15,7 @@ class Conversation < ActiveRecord::Base
     drivers.each  do | driver|
       Conversation.create(:from_id => trip.passenger_id, :to_id => driver.id, :status => STATUS_NEW, 
                           :status_desc => STATUS_NEW_DESC, :trip_id => trip.id , :content => 'a passenger want a car')
-      Conversation.push("driver-"+to_id.to_s,"conversation")
+      Conversation.push("driver-"+to_id.to_s,"conversations")
     end
   end
 
