@@ -35,12 +35,13 @@ class Api::PassengersController < ApplicationController
     @passenger = Passenger.where(:mobile => params[:passenger][:mobile]).first
     if @passenger
        if @passenger.password == params[:passenger][:password]
+     	  Passenger.update(@passenger.id,:lat => params[:passenger][:lat], :lng => params[:passenger][:lng], :online => 1)
           render :json => {:passenger =>@passenger}
        else
           render :json => {:error => 'password is not correct'}
        end
     else
-      render :json => {:error => 'this driver is not exist'}
+      render :json => {:error => 'this passenger is not exist'}
     end
   end
 
