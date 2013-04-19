@@ -6,7 +6,7 @@ class Passenger < ActiveRecord::Base
   has_many :conversations
 
 
-  def self.get_verification_code(mobile,content)
+  def self.send_sms(mobile,content)
     uri = URI.parse("http://www.smsbao.com/sms?u=fpwang&p="+Digest::MD5.hexdigest("tiantiandache")+"&m="+mobile+"&c="+content) 
     http = Net::HTTP.new(uri.host,uri.port)
     request = Net::HTTP::Get.new(uri.request_uri)

@@ -16,8 +16,19 @@ class Api::PassengersController < ApplicationController
   end
 
   def get_verification_code
-    content = URI::encode("手机验证码:"+rand(9999).to_s+" [天天打车]")
-    render :json => {:code => Passenger.get_verification_code(params[:mobile],content) }
+    @passenger = Passenger.where(:mobile => params[:mobile]).first
+    if @passenger
+      content = @passenger.password
+      render :json => {:code => Passenger.send_sms(params[:mobile],content) }
+    else
+      randcode = rand(9999).to_s
+      content = URI::encode("手机验证码:"+randcode+" [天天打车]")
+      new_passenger = Passenger.new
+      new_passenger.mobile = params[:mobile]
+      new_passenger.password = randcode
+      new_passenger.save
+      render :json => {:code => Passenger.send_sms(params[:mobile],content) }
+    end
   end
 
   def signup 
