@@ -8,7 +8,6 @@ class Api::ConversationsController < ApplicationController
     if params[:from_id]
       @conversations = Conversation.where(:from_id => params[:from_id])
     end
-    Conversation.push 
     render :json => {:conversations => @conversations }
   end
 
@@ -61,8 +60,8 @@ class Api::ConversationsController < ApplicationController
 	  Conversation.where(:from_id => @conversation.from_id).where(:status => 0).each do |conversation|
 	    Conversation.update(conversation.id,:status => 5)
 	  end
+	  Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
 	end
-
     if @conversation.update_attributes(params[:conversation])
       render :json => { :conversation => @conversation }
     else
