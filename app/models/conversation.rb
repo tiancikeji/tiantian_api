@@ -41,5 +41,4 @@ class Conversation < ActiveRecord::Base
 	logger.info(alias_name)
     logger.info(res.body)
   end
-
 end
