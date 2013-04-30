@@ -50,7 +50,9 @@ class Conversation < ActiveRecord::Base
   end
  
   def distance
-    @distance = '5'
+    driver = Driver.find(self.to_id)
+    passenger = Passenger.find(self.from_id)
+    @distance = GeoKit::LatLng.new(driver.lat,driver.lng).distance_from(GeoKit::LatLng.new(passenger.lat,passenger.lng))
   end
 
 end
