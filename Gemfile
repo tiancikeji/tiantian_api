@@ -16,6 +16,7 @@ gem 'mysql2'
 
 gem 'github-markup'
 gem 'geokit-rails3'
+gem 'timers'
 
 group :development do
   gem 'quiet_assets'

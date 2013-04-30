@@ -6,17 +6,27 @@ class Conversation < ActiveRecord::Base
   STATUS_NEW_DESC = 'new'
   STATUS_ACCETP_DESC = 'accept'
   STATUS_REJECT_DESC = 'reject'
-  attr_accessible :from_id, :status, :status_desc, :to_id, :trip_id, :content
+  attr_accessible :from_id, :status, :status_desc, :to_id, :trip_id, :content, :left
   belongs_to :trip
   belongs_to :passenger ,:class_name => 'Passenger', :foreign_key => 'from_id'
   belongs_to :driver, :class_name => 'Driver', :foreign_key => 'to_id'
 
   def self.scope(trip, drivers)
+    convers = {}
     drivers.each  do | driver|
-      Conversation.create(:from_id => trip.passenger_id, :to_id => driver.id, :status => STATUS_NEW, 
+      new_conversation = Conversation.create(:from_id => trip.passenger_id, :to_id => driver.id, :status => STATUS_NEW, 
                           :status_desc => STATUS_NEW_DESC, :trip_id => trip.id , :content => 'a passenger want a car')
+      convers << new_conversation
       Conversation.notice("driver_"+driver.id.to_s,"conversations")
     end
+    timers.after(15){
+      convers.each do |con|
+        if con.status == STATUS_NEW
+	        Conversation.update(con.id,:status => 5)
+          logger.info("=========timer update status ================")
+        end
+      end
+    }
   end
 
   def self.single(trip,driver)
@@ -41,4 +51,10 @@ class Conversation < ActiveRecord::Base
 	logger.info(alias_name)
     logger.info(res.body)
   end
+
+  def left
+    Time.now - self.created_at
+  end
+
+
 end
