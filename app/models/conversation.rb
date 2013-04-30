@@ -1,4 +1,5 @@
 #encoding: utf-8
+require 'timers'
 class Conversation < ActiveRecord::Base
   STATUS_NEW = 0
   STATUS_ACCETP = 1
@@ -12,21 +13,24 @@ class Conversation < ActiveRecord::Base
   belongs_to :driver, :class_name => 'Driver', :foreign_key => 'to_id'
 
   def self.scope(trip, drivers)
-    convers = {}
+    convers = []
     drivers.each  do | driver|
       new_conversation = Conversation.create(:from_id => trip.passenger_id, :to_id => driver.id, :status => STATUS_NEW, 
                           :status_desc => STATUS_NEW_DESC, :trip_id => trip.id , :content => 'a passenger want a car')
       convers << new_conversation
       Conversation.notice("driver_"+driver.id.to_s,"conversations")
     end
-    timers.after(15){
+    timers = Timers.new
+    timers.after(90){
       convers.each do |con|
         if con.status == STATUS_NEW
-	        Conversation.update(con.id,:status => 5)
+	  Conversation.update(con.id,:status => 5)
+          Conversation.notice("driver_"+con.to_id.to_s,"conversations")
           logger.info("=========timer update status ================")
         end
       end
     }
+    timers.wait
   end
 
   def self.single(trip,driver)
@@ -53,8 +57,11 @@ class Conversation < ActiveRecord::Base
   end
 
   def left
-    Time.now - self.created_at
+    @left =  (Time.now - self.created_at).to_i
   end
-
+ 
+  def distance
+    @distance = '5'
+  end
 
 end
