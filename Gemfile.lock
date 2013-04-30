@@ -129,4 +129,3 @@ DEPENDENCIES
   sinatra
   slim
   thin
-  timers

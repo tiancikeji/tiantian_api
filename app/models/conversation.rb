@@ -1,5 +1,4 @@
 #encoding: utf-8
-require 'timers'
 class Conversation < ActiveRecord::Base
   STATUS_NEW = 0
   STATUS_ACCETP = 1
