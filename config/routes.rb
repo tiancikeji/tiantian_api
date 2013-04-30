@@ -1,3 +1,4 @@
+require 'sidekiq/web'
 Api::Application.routes.draw do
 
   resources :notifications
@@ -13,6 +14,8 @@ Api::Application.routes.draw do
   resources :passengers
 
   get 'map' => 'map#index'
+
+  mount Sidekiq::Web, at: '/sidekiq'
 
   namespace :api do
     get 'passengers' => 'passengers#index'

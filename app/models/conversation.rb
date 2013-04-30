@@ -19,14 +19,7 @@ class Conversation < ActiveRecord::Base
       convers << new_conversation
       Conversation.notice("driver_"+driver.id.to_s,"conversations")
     end
-    timers.after(15){
-      convers.each do |con|
-        if con.status == STATUS_NEW
-	        Conversation.update(con.id,:status => 5)
-          logger.info("=========timer update status ================")
-        end
-      end
-    }
+     PygmentsWorker.perform_in(90, convers)
   end
 
   def self.single(trip,driver)
