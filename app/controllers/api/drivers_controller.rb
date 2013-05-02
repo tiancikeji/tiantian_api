@@ -27,6 +27,7 @@ class Api::DriversController < ApplicationController
     @driver = Driver.where(:mobile => params[:driver][:mobile]).first
     if @driver
        if @driver.password == params[:driver][:password]
+     	  Driver.update(@driver.id,:lat => params[:driver][:lat], :lng => params[:driver][:lng], :online => 1)
           render :json => {:driver => @driver}
        else
           render :json => {:error => 'password is not correct'}
