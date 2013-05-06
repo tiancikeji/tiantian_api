@@ -54,15 +54,14 @@ class Api::ConversationsController < ApplicationController
   # POST /conversations/1.json
   def update
     @conversation = Conversation.find(params[:id])
-	logger.info("------------------------------")
-	logger.info(@conversation.from_id)
-	logger.info(@conversation.status)
-
-	if @conversation.status == 0
-		Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
+	@conversation.status = params[:conversation][:status]
+	if @conversation.status == 0 or @conversation.status == 4
+	  Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
 	end
-	if @conversation.status == 1
-	  Conversation.where(:from_id => @conversation.from_id).where(:status => 0).each do |conversation|
+	if @conversation.status == 1 or @conversation.status == -1 
+	  Conversation.notice("driver_"+@conversation.to_id.to_s,"conversations")
+	  Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
+	  Conversation.where("from_id = "+@conversation.from_id.to_s).each do |conversation|
 	    Conversation.update(conversation.id,:status => 5)
 	  end
 	end

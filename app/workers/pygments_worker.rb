@@ -4,12 +4,17 @@ class PygmentsWorker
   # sidekiq_options retry: false
 
   def perform(convers)
-    convers.each do |con|
-      if con.status == STATUS_NEW
+    logger.info("=========sidekiq update status ================")
+    logger.info(convers.count)
+    logger.info(convers)
+    convers.each do |id|
+      logger.info(id)
+      con =  Conversation.find(id)
+      if con.status == 0
         Conversation.update(con.id,:status => 5)
-        logger.info("=========timer update status ================")
-      end
+      	Conversation.notice("driver_"+con.to_id.to_s,"conversations")
+      end	
     end
-
   end
+
 end
