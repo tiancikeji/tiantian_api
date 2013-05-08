@@ -27,6 +27,31 @@
     <%= f.label :status_desc %><br />
     <%= f.text_field :status_desc %>
   </div>
+  <div class="field">
+    <%= f.label :passenger_id,'passenger' %><br />
+    <%= f.select :passenger_id,Passenger.all.map { |passenger| [passenger.name,passenger.id] } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :start %><br />
+    <%= f.text_field :start %>
+  </div>
+  <div class="field">
+    <%= f.label :start_lat %><br />
+    <%= f.text_field :start_lat %>
+  </div>
+  <div class="field">
+    <%= f.label :start_lng %><br />
+    <%= f.text_field :start_lng %>
+  </div>
+  <div class="field">
+    <%= f.label :end %><br />
+    <%= f.text_field :end %>
+  </div>
+  <div class="field">
+    <%= f.label :appointment %><br />
+    <%= f.text_field :appointment %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

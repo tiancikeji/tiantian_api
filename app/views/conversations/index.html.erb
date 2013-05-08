@@ -11,6 +11,12 @@
     <th>Status</th>
     <th>Status desc</th>
     <th>create at</th>
+    <th>Passenger</th>
+    <th>Start</th>
+    <th>Start</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Appointment</th>
     <th></th>
     <th></th>
     <th></th>
@@ -26,6 +32,16 @@
     <td><%= conversation.driver.name %></td>
     <td><%= conversation.status %></td>
     <td><%= conversation.status_desc %></td>
+    <% if  conversation.passenger %>
+     <td><%= conversation.passenger.name %></td>
+    <% else %>
+     <td> nil </td>
+    <% end %>
+    <td><%= conversation.start %></td>
+    <td><%= conversation.start_lat %></td>
+    <td><%= conversation.start_lng %></td>
+    <td><%= conversation.end %></td>
+    <td><%= conversation.appointment %></td>
     <td><%= conversation.created_at %></td>
     <td><%= link_to 'Show', conversation %></td>
     <td><%= link_to 'Edit', edit_conversation_path(conversation) %></td>

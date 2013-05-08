@@ -8,6 +8,10 @@ class Api::ConversationsController < ApplicationController
     if params[:from_id]
       @conversations = Conversation.where(:from_id => params[:from_id])
     end
+
+    if params[:trip_id]
+      @conversations = Conversation.where(:trip_id => params[:trip_id])
+    end
     render :json => {:conversations => @conversations }
   end
 

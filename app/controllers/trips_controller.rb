@@ -39,6 +39,7 @@ class TripsController < ApplicationController
   # POST /trips
   # POST /trips.json
   def create
+	#TODO right now creating duplicates
     @trip = Trip.new(params[:trip])
 
     respond_to do |format|

@@ -18,7 +18,11 @@
 <% @trips.each do |trip| %>
   <tr>
     <td><%= trip.id %></td>
-    <td><%= trip.passenger.name %></td>
+    <% if trip.passenger %>
+     <td><%= trip.passenger.name %></td>
+    <% else %>
+     <td> nil </td>
+    <% end %>
     <td><%= trip.start %></td>
     <td><%= trip.start_lat %></td>
     <td><%= trip.start_lng %></td>
