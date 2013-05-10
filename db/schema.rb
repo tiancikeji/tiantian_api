@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508015940) do
+ActiveRecord::Schema.define(:version => 20130509062259) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20130508015940) do
     t.string   "end_lat",      :null => false
     t.string   "end_lng",      :null => false
     t.string   "price"
+    t.string   "mobile"
   end
 
   create_table "drivers", :force => true do |t|

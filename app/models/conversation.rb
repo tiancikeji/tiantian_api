@@ -7,7 +7,7 @@ class Conversation < ActiveRecord::Base
   STATUS_NEW_DESC = 'new'
   STATUS_ACCETP_DESC = 'accept'
   STATUS_REJECT_DESC = 'reject'
-  attr_accessible :from_id, :status, :status_desc, :to_id, :content, :left, :appointment, :end, :start, :passenger_id, :start_lat, :start_lng, :end_lat, :end_lng, :price, :trip_id
+  attr_accessible :from_id, :status, :status_desc, :to_id, :content, :left, :appointment, :end, :start, :passenger_id, :start_lat, :start_lng, :end_lat, :end_lng, :price, :trip_id, :mobile
  
 #  belongs_to :trip
   belongs_to :passenger ,:class_name => 'Passenger', :foreign_key => 'from_id'
@@ -19,7 +19,7 @@ class Conversation < ActiveRecord::Base
       # duplicating passenger id, for clarity, also keeping trip_id
       #relation in place in case we need it for future use
       new_conversation = Conversation.create(:from_id => trip.passenger_id, :to_id => driver.id, :status => STATUS_NEW, :appointment => trip.appointment, 
-	:trip_id => trip.id,
+	:trip_id => trip.id, :mobile => trip.passenger.mobile,
 	:end => trip.end, :start => trip.start, :passenger_id => trip.passenger_id,
 	:start_lat => trip.start_lat, :start_lng => trip.start_lng,
 	:end_lng => trip.end_lng, :end_lat => trip.end_lat, :price => trip.price,
@@ -32,7 +32,7 @@ class Conversation < ActiveRecord::Base
 
   def self.single(driver)
       Conversation.create(:from_id => trip.passenger_id, :to_id => driver.id, :status => STATUS_NEW, :appointment => trip.appointment, 
-	:end => trip.end, :start => trip.start, :passenger_id => trip.passenger_id,
+	:end => trip.end, :start => trip.start, :passenger_id => trip.passenger_id, :mobile => trip.passenger.mobile,
 	:start_lat => trip.start_lat, :start_lng => trip.start_lng,
 	:end_lng => trip.end_lng, :end_lat => trip.end_lat, :price => trip.price,
                           :status_desc => STATUS_NEW_DESC , :content => 'a passenger want a car')
