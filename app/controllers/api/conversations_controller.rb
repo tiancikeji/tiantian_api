@@ -58,17 +58,24 @@ class Api::ConversationsController < ApplicationController
   # POST /conversations/1.json
   def update
     @conversation = Conversation.find(params[:id])
-	@conversation.status = params[:conversation][:status]
-	if @conversation.status == 0 or @conversation.status == 4
-	  Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
-	end
-	if @conversation.status == 1 or @conversation.status == -1 
-	  Conversation.notice("driver_"+@conversation.to_id.to_s,"conversations")
-	  Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
-	  Conversation.where("from_id = "+@conversation.from_id.to_s+" and id <> "+params[:id]).each do |conversation|
-	    Conversation.update(conversation.id,:status => 5)
-	  end
-	end
+
+    @conversation.status = params[:conversation][:status]
+
+    if @conversation.status == 0 or @conversation.status == 4
+      Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
+    end
+
+    if @conversation.status == 1 or @conversation.status == -1 
+
+      Conversation.notice("driver_"+@conversation.to_id.to_s,"conversations")
+      Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
+      Conversation.where("from_id = "+@conversation.from_id.to_s+" and id <> "+@converstaion.id).each do |conversation|
+        Conversation.notice("driver_"+conversation.to_id.to_s,"conversations")
+        Conversation.update(conversation.id,:status => 5)
+      end
+
+    end
+
     if @conversation.update_attributes(params[:conversation])
       render :json => { :conversation => @conversation }
     else
