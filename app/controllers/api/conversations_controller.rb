@@ -65,7 +65,7 @@ class Api::ConversationsController < ApplicationController
 	if @conversation.status == 1 or @conversation.status == -1 
 	  Conversation.notice("driver_"+@conversation.to_id.to_s,"conversations")
 	  Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
-	  Conversation.where("from_id = "+@conversation.from_id.to_s+" and id <> "+@converstaion.id).each do |conversation|
+	  Conversation.where("from_id = "+@conversation.from_id.to_s+" and id <> "+params[:id]).each do |conversation|
 	    Conversation.update(conversation.id,:status => 5)
 	  end
 	end
