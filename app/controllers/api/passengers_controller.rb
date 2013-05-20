@@ -37,10 +37,10 @@ class Api::PassengersController < ApplicationController
      	  Passenger.update(@passenger.id,:lat => params[:passenger][:lat], :lng => params[:passenger][:lng], :online => 1)
           render :json => {:passenger =>@passenger}
        else
-          render :json => {:error => 'password is not correct'}
+          render :json => {:error => '密码错误'}
        end
     else
-      render :json => {:error => 'this passenger is not exist'}
+      render :json => {:error => '用户不存在'}
     end
   end
 
