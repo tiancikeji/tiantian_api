@@ -19,6 +19,7 @@ gem 'geokit-rails3'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
+gem "apns"
 
 group :development do
   gem 'quiet_assets'

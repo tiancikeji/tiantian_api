@@ -63,12 +63,14 @@ class Api::ConversationsController < ApplicationController
 
     if @conversation.status == 0 or @conversation.status == 4
       Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
+      Apn.send(@converstaion.from_id.iosDevice,"converstaion")
     end
 
     if @conversation.status == 1 or @conversation.status == -1 
 
       Conversation.notice("driver_"+@conversation.to_id.to_s,"conversations")
       Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
+      Apn.send(@converstaion.from_id.iosDevice,"converstaion")
       Conversation.where("from_id = "+@conversation.from_id.to_s+" and id <> "+@converstaion.id).each do |conversation|
         Conversation.notice("driver_"+conversation.to_id.to_s,"conversations")
         Conversation.update(conversation.id,:status => 5)
