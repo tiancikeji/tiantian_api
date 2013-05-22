@@ -34,7 +34,7 @@ class Api::PassengersController < ApplicationController
     @passenger = Passenger.where(:mobile => params[:passenger][:mobile]).first
     if @passenger
        if @passenger.password == params[:passenger][:password]
-     	  Passenger.update(@passenger.id,:lat => params[:passenger][:lat], :lng => params[:passenger][:lng], :online => 1)
+     	  Passenger.update(@passenger.id,:lat => params[:passenger][:lat], :lng => params[:passenger][:lng], :online => 1,:androidDevice => params[:passenger][:androidDevice], :iosDevice => params[:passenger][:iosDevice])
           render :json => {:passenger =>@passenger}
        else
           render :json => {:error => '密码错误'}
