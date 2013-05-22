@@ -25,7 +25,7 @@ class Conversation < ActiveRecord::Base
 	:end_lng => trip.end_lng, :end_lat => trip.end_lat, :price => trip.price,
         :status_desc => STATUS_NEW_DESC, :content => 'a passenger want a car')
       convers << new_conversation.id
-      Conversation.notice("driver_"+driver.id.to_s,"conversations")# new_conversation.to_json )
+      Conversation.notice("driver_"+driver.id.to_s,"conversations")# change to 会话更新
     end
      PygmentsWorker.perform_in(90, convers)
   end
@@ -35,7 +35,7 @@ class Conversation < ActiveRecord::Base
 	:end => trip.end, :start => trip.start, :passenger_id => trip.passenger_id, :mobile => trip.passenger.mobile,
 	:start_lat => trip.start_lat, :start_lng => trip.start_lng,
 	:end_lng => trip.end_lng, :end_lat => trip.end_lat, :price => trip.price,
-                          :status_desc => STATUS_NEW_DESC , :content => 'a passenger want a car')
+                          :status_desc => STATUS_NEW_DESC , :content => 'a passenger wants a car')
   end
 
   def self.notice(alias_name,txt)

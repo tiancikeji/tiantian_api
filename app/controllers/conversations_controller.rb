@@ -5,7 +5,7 @@ class ConversationsController < ApplicationController
     if params[:trip_id]
       @conversations = Conversation.where(:trip_id => params[:trip_id])
     elsif params[:to_id]
-      @conversations = Conversation.where(:to_id => params[:to_id])
+      @conversations = Conversation.where("to_id = " + params[:to_id] + " and status <> 5")
     elsif params[:from_id]
       @conversations = Conversation.where(:from_id => params[:from_id])
     else
