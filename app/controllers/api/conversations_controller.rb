@@ -100,13 +100,13 @@ class Api::ConversationsController < ApplicationController
 
     if @conversation.status == 0 or @conversation.status == 4
       Conversation.notice("passenger_"+@conversation.from_id.to_s,PUSH_NOTICE)
-      Apn.send(@conversation.passenger.iosDevice,"conversation")
+      Apn.send(@conversation.passenger.iosDevice,@conversation.to_json)
     end
 
     #Don't send a push to the driver, he/she will receive a notice if the update fails
     if STATUS_ACCEPT == @conversation.status or STATUS_DRIVER_CANCEL == @conversation.status
       Conversation.notice("passenger_"+@conversation.from_id.to_s,PUSH_NOTICE)
-      Apn.send(@conversation.passenger.iosDevice,"conversation")
+      Apn.send(@conversation.passenger.iosDevice,@conversation.to_json)
     elsif STATUS_RIDER_CANCEL == @conversation.status
       Conversation.notice("driver_"+@conversation.to_id.to_s,PUSH_NOTICE)
     end
