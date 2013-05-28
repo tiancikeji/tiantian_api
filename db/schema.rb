@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130509062259) do
+ActiveRecord::Schema.define(:version => 20130524013420) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -24,20 +24,20 @@ ActiveRecord::Schema.define(:version => 20130509062259) do
     t.integer  "to_id"
     t.integer  "status"
     t.string   "status_desc"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "trip_id",      :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "trip_id",                     :null => false
     t.string   "content"
     t.string   "distance"
     t.integer  "left"
-    t.string   "appointment"
+    t.integer  "appointment",  :default => 0
     t.string   "end"
     t.string   "start"
     t.integer  "passenger_id"
-    t.string   "start_lat",    :null => false
-    t.string   "start_lng",    :null => false
-    t.string   "end_lat",      :null => false
-    t.string   "end_lng",      :null => false
+    t.string   "start_lat",                   :null => false
+    t.string   "start_lng",                   :null => false
+    t.string   "end_lat",                     :null => false
+    t.string   "end_lng",                     :null => false
     t.string   "price"
     t.string   "mobile"
   end
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(:version => 20130509062259) do
   create_table "trips", :force => true do |t|
     t.string   "start"
     t.string   "end"
-    t.string   "appointment"
+    t.integer  "appointment"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "passenger_id", :null => false

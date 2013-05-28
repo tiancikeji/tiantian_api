@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 class Api::ConversationsController < ApplicationController
   STATUS_ACCEPT = 1
   STATUS_RIDER_CANCEL = -1
@@ -11,11 +13,18 @@ class Api::ConversationsController < ApplicationController
   ALREADY_ACCEPTED = 0
   RIDER_CANCELED = 1
 
+  PUSH_NOTICE = "会话更新"
+
+
   # GET /conversations
   # GET /conversations.json
   def index
     if params[:to_id]
-      @conversations = Conversation.where(:to_id => params[:to_id])
+      if params[:status] and params[:appointment]
+        @conversations = Conversation.where("to_id = " + params[:to_id] + " and status = " + params[:status] + " and appointment > " + params[:appointment])
+      else
+        @conversations = Conversation.where(:to_id => params[:to_id])
+      end
     end
     if params[:from_id]
       if params[:only_not_finished]
@@ -90,21 +99,21 @@ class Api::ConversationsController < ApplicationController
     @conversation.status = params[:conversation][:status]
 
     if @conversation.status == 0 or @conversation.status == 4
-      Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
-      Apn.send(@converstaion.from.iosDevice,"converstaion")
+      Conversation.notice("passenger_"+@conversation.from_id.to_s,PUSH_NOTICE)
+      Apn.send(@conversation.passenger.iosDevice,"conversation")
     end
 
     #Don't send a push to the driver, he/she will receive a notice if the update fails
     if STATUS_ACCEPT == @conversation.status or STATUS_DRIVER_CANCEL == @conversation.status
-      Conversation.notice("passenger_"+@conversation.from_id.to_s,"conversations")
-      Apn.send(@conversation.passenger.iosDevice,"converstaion")
+      Conversation.notice("passenger_"+@conversation.from_id.to_s,PUSH_NOTICE)
+      Apn.send(@conversation.passenger.iosDevice,"conversation")
     elsif STATUS_RIDER_CANCEL == @conversation.status
-      Conversation.notice("driver_"+@conversation.to_id.to_s,"conversations")
+      Conversation.notice("driver_"+@conversation.to_id.to_s,PUSH_NOTICE)
     end
 
     if @conversation.status == 1 or @conversation.status == -1 or @conversation.status == 2
       Conversation.where("from_id = "+@conversation.from_id.to_s+" and id <> "+params[:id]+" and status <> 5 ").each do |conversation|
-        Conversation.notice("driver_"+conversation.to_id.to_s,"conversations")
+        Conversation.notice("driver_"+conversation.to_id.to_s,PUSH_NOTICE)
         Conversation.update(conversation.id,:status => 5)
       end
 

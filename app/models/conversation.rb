@@ -7,6 +7,7 @@ class Conversation < ActiveRecord::Base
   STATUS_NEW_DESC = 'new'
   STATUS_ACCETP_DESC = 'accept'
   STATUS_REJECT_DESC = 'reject'
+  PUSH_NOTICE = "会话更新"
   attr_accessible :from_id, :status, :status_desc, :to_id, :content, :left, :appointment, :end, :start, :passenger_id, :start_lat, :start_lng, :end_lat, :end_lng, :price, :trip_id, :mobile
  
 #  belongs_to :trip
@@ -25,7 +26,7 @@ class Conversation < ActiveRecord::Base
 	:end_lng => trip.end_lng, :end_lat => trip.end_lat, :price => trip.price,
         :status_desc => STATUS_NEW_DESC, :content => 'a passenger want a car')
       convers << new_conversation.id
-      Conversation.notice("driver_"+driver.id.to_s,"conversations")# change to 会话更新
+      Conversation.notice("driver_"+driver.id.to_s,PUSH_NOTICE)# change to 会话更新
     end
      PygmentsWorker.perform_in(90, convers)
   end
