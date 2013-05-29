@@ -37,9 +37,9 @@ class Api::TripsController < ApplicationController
   # POST /trips.json
   def create
     #1.create a trip
-    if params[:trip] and not params[:trip][:appointment]
-      params[:trip][:appointment] = (Time.now.to_i + 60 * 31).to_s #add 31 mins
-    end
+#   if params[:trip] and not params[:trip][:appointment]
+#     params[:trip][:appointment] = (Time.now.to_i + 60 * 31).to_s #add 31 mins
+#   end
     @trip = Trip.new(params[:trip])
     if @trip.save
       #2.create some conversations in 5 miles scope drivers

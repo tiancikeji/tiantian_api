@@ -19,7 +19,7 @@ class Conversation < ActiveRecord::Base
     drivers.each  do | driver|
       # duplicating passenger id, for clarity, also keeping trip_id
       #relation in place in case we need it for future use
-      new_conversation = Conversation.create(:from_id => trip.passenger_id, :to_id => driver.id, :status => STATUS_NEW, :appointment => trip.appointment, 
+      new_conversation = Conversation.create(:from_id => trip.passenger_id, :to_id => driver.id, :status => STATUS_NEW, :appointment => (if trip.appointment.nil? then 0 else trip.appointment end), 
 	:trip_id => trip.id, :mobile => trip.passenger.mobile,
 	:end => trip.end, :start => trip.start, :passenger_id => trip.passenger_id,
 	:start_lat => trip.start_lat, :start_lng => trip.start_lng,
@@ -32,7 +32,7 @@ class Conversation < ActiveRecord::Base
   end
 
   def self.single(driver)
-      Conversation.create(:from_id => trip.passenger_id, :to_id => driver.id, :status => STATUS_NEW, :appointment => trip.appointment, 
+      Conversation.create(:from_id => trip.passenger_id, :to_id => driver.id, :status => STATUS_NEW, :appointment => (if trip.appointment.nil? then 0 else trip.appointment end), 
 	:end => trip.end, :start => trip.start, :passenger_id => trip.passenger_id, :mobile => trip.passenger.mobile,
 	:start_lat => trip.start_lat, :start_lng => trip.start_lng,
 	:end_lng => trip.end_lng, :end_lat => trip.end_lat, :price => trip.price,

@@ -20,11 +20,11 @@ class Api::ConversationsController < ApplicationController
   # GET /conversations.json
   def index
     if params[:to_id]
-      if params[:status] and params[:appointment]
-        @conversations = Conversation.where("to_id = " + params[:to_id] + " and status = " + params[:status] + " and appointment > " + params[:appointment])
-      else
-        @conversations = Conversation.where(:to_id => params[:to_id])
-      end
+     if params[:status] and params[:appointment]
+       @conversations = Conversation.where("to_id = " + params[:to_id] + " and status = " + params[:status] + " and appointment > " + params[:appointment])
+     else
+        @conversations = Conversation.where("to_id = "+params[:to_id]+" and status <> 5 ")
+     end
     end
     if params[:from_id]
       if params[:only_not_finished]
